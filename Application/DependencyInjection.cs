@@ -4,9 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Application;
+
+public static class DependencyInjection
 {
-    public class DependencyInjection
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        // Här kan du senare registrera MediatR, Validators osv.
+        return services;
     }
 }
