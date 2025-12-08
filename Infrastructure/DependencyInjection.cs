@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application;
+using Infrastructure.Authentication;
+using Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure
+namespace Infrastructure;
+
+public static class DependencyInjection
 {
-    internal class DependencyInjection
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
+        services.AddDbContext<UserDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("UserDatabase")));
+
+        services.AddScoped<IAuthService, AuthService>();
+
+        return services;
     }
 }
+
+
+
+
+
